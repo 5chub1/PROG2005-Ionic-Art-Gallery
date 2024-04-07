@@ -1,0 +1,7 @@
+{
+  "name": "Art Gallery",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
