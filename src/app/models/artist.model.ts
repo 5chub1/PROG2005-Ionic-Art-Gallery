@@ -1,11 +1,11 @@
 export default interface Artist {
-  id: string;
+  artist_id: string;
   name: string;
   dob: Date;
   gender: 'Female' | 'Male' | 'Unspecified';
-  artworkType: 'painting' | 'sculpture' | 'photograph' | 'video art' | 'digital art' | 'printmaking';
-  contactInfo: string;
-  exhibitionDate: Date;
-  specialNotes?: string;
-  isFeatured: boolean;
+  artwork_type: 'painting' | 'sculpture' | 'photograph' | 'video art' | 'digital art' | 'printmaking';
+  contact_info: string;
+  exhibition_date: Date;
+  special_notes?: string;
+  is_featured_artist: boolean;
 }

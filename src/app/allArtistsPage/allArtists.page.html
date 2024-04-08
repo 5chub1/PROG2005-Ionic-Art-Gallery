@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> All Artists </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">All Artists</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let artist of artists">
+        <ion-card>
+          <ion-card-header class="ion-card-header">
+            <ion-card-title
+              >{{ artist.name || 'Unnamed Artist' }}
+            </ion-card-title>
+            <ion-chip [outline]="true">{{ artist.artist_id }}</ion-chip>
+          </ion-card-header>
+          <ion-card-content>
+            <p><strong>DOB</strong> {{ artist.dob | date: 'longDate' }}</p>
+            <p><strong>Gender:</strong> {{ artist.gender }}</p>
+            <p><strong>Artwork Type:</strong> {{ artist.artwork_type }}</p>
+            <p><strong>Contact Info:</strong> {{ artist.contact_info }}</p>
+            <p>
+              <strong>Exhibition Date:</strong> {{ artist.exhibition_date |
+              date: 'medium' }}
+            </p>
+            <p><strong>Special Notes:</strong> {{ artist.special_notes }}</p>
+            <p>
+              <strong>Featured Artist:</strong> {{ artist.is_featured_artist ?
+              'Yes' : 'No' }}
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
