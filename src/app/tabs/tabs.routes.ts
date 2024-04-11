@@ -21,11 +21,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../artistDetailPage/artistDetail.page').then((m) => m.ArtistDetailPage),
       },
+      {
+        path: '',
+        redirectTo: '/artists',
+        pathMatch: 'full',
+      },
     ],
-  },
-  {
-    path: '',
-    redirectTo: 'artists',
-    pathMatch: 'full',
   },
 ];
