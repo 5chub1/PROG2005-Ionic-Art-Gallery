@@ -3,29 +3,34 @@ import { TabsPage } from './tabs.page';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'artists',
     component: TabsPage,
     children: [
       {
-        path: 'artists',
+        path: 'all',
         loadComponent: () =>
           import('../allArtistsPage/allArtists.page').then((m) => m.AllArtistsPage),
       },
       {
-        path: 'tab3',
+        path: 'search',
         loadComponent: () =>
           import('../tab3/tab3.page').then((m) => m.Tab3Page),
       },
       {
-        path: 'artists/:name',
+        path: 'add',
         loadComponent: () =>
-          import('../artistDetailPage/artistDetail.page').then((m) => m.ArtistDetailPage),
+          import('../tab3/tab3.page').then((m) => m.Tab3Page),
       },
       {
-        path: '',
-        redirectTo: '/artists',
-        pathMatch: 'full',
-      },
+        path: ':name',
+        loadComponent: () =>
+          import('../artistDetailPage/artistDetail.page').then((m) => m.ArtistDetailPage),
+      }
     ],
+  },
+  {
+    path: '',
+    redirectTo: 'artists',
+    pathMatch: 'full',
   },
 ];
