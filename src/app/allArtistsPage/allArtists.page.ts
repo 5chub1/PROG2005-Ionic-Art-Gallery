@@ -20,7 +20,7 @@ export class AllArtistsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.artistService.getAllArtists().subscribe({ // Assign the subscription to the variable
+    this.artistService.getAllArtists().subscribe({
       next: (data: Artist[]) => {
         this.artists = data;
         console.log(data);

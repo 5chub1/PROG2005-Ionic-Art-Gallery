@@ -14,7 +14,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-md="6" size-lg="4" *ngFor="let artist of artists">
-        <ion-card>
+        <ion-card href="/artists/{{ artist.name}}">
           <ion-card-header class="ion-card-header">
             <ion-card-title
               >{{ artist.name || 'Unnamed Artist' }}

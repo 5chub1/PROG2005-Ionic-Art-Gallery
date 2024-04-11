@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{ artist.name || 'Unnamed Artist' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{ artist.name || 'Unnamed Artist' }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" sizeMd="4" sizeLg="3">
+        <p>DOB: {{ artist.dob | date: 'longDate' }}</p>
+      </ion-col>
+      <ion-col size="6" sizeMd="4" sizeLg="3">
+        <p>Gender: {{ artist.gender}}</p>
+      </ion-col>
+      <ion-col size="6" sizeMd="4" sizeLg="3">
+        <p>Artwork Type: {{ artist.artwork_type }}</p>
+      </ion-col>
+      <ion-col size="12" sizeMd="6">
+        <p>Contact Info: {{ artist.contact_info }}</p>
+      </ion-col>
+      <ion-col size="12" sizeMd="6">
+        <p>Special Notes: {{ artist.special_notes }}</p>
+      </ion-col>
+      <ion-col size="8">
+        <p>Exhibition Date: {{ artist.exhibition_date | date: 'longDate' }}</p>
+      </ion-col>
+      <ion-col size="4">
+        <p>
+          Featured:
+          <span *ngIf="artist.is_featured_artist; else isNotFeatured">✅</span
+          ><ng-template #isNotFeatured> ❌ </ng-template>
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -3,18 +3,13 @@ import { TabsPage } from './tabs.page';
 
 export const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
       {
-        path: 'all-artists',
+        path: 'artists',
         loadComponent: () =>
           import('../allArtistsPage/allArtists.page').then((m) => m.AllArtistsPage),
-      },
-      {
-        path: 'tab2',
-        loadComponent: () =>
-          import('../tab2/tab2.page').then((m) => m.Tab2Page),
       },
       {
         path: 'tab3',
@@ -22,15 +17,15 @@ export const routes: Routes = [
           import('../tab3/tab3.page').then((m) => m.Tab3Page),
       },
       {
-        path: '',
-        redirectTo: '/tabs/tab1',
-        pathMatch: 'full',
+        path: 'artists/:name',
+        loadComponent: () =>
+          import('../artistDetailPage/artistDetail.page').then((m) => m.ArtistDetailPage),
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/tabs/all-artists',
+    redirectTo: 'artists',
     pathMatch: 'full',
   },
 ];

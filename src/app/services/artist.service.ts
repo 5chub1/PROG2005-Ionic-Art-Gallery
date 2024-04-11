@@ -30,7 +30,7 @@ export class ArtistService {
    * @param name The name of the artist to retrieve.
    * @returns An observable that emits the response from the API.
    */
-  getArtistByName(name: string): Observable<Artist> {
+  getArtistByName(name: string): Observable<Artist[] | Artist> {
     return this.http.get<any>(`${this.baseUrl}/${name}`).pipe(
       catchError(this.handleError)
     );
