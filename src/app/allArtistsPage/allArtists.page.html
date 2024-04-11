@@ -7,7 +7,12 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">All Artists</ion-title>
+      <ion-title size="large" *ngIf="!isFeaturedPage; else featuredPage"
+        >All Artists</ion-title
+      >
+      <ng-template #featuredPage
+        ><ion-title size="large">Featured Artists</ion-title></ng-template
+      >
     </ion-toolbar>
   </ion-header>
 
@@ -32,8 +37,10 @@
             </p>
             <p><strong>Special Notes:</strong> {{ artist.special_notes }}</p>
             <p>
-              <strong>Featured Artist:</strong> {{ artist.is_featured_artist ?
-              'Yes' : 'No' }}
+              <strong>Featured Artist:</strong>
+              <span *ngIf="artist.is_featured_artist; else isNotFeatured"
+                >&nbsp;✅</span
+              ><ng-template #isNotFeatured><span>&nbsp;❌</span></ng-template>
             </p>
           </ion-card-content>
         </ion-card>

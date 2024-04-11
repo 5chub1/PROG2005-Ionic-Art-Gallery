@@ -34,7 +34,7 @@
         <p>
           Featured:
           <span *ngIf="artist.is_featured_artist; else isNotFeatured">✅</span
-          ><ng-template #isNotFeatured> ❌ </ng-template>
+          ><ng-template #isNotFeatured><span>❌</span></ng-template>
         </p>
       </ion-col>
     </ion-row>
