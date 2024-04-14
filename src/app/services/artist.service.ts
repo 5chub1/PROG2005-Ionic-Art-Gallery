@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import Artist from '../models/artist.model';
-import { AlertController } from '@ionic/angular';
+import { AlertService } from './alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class ArtistService {
 
   private baseUrl = 'https://prog2005.it.scu.edu.au/ArtGalley';
 
-  constructor(private http: HttpClient, private alertController: AlertController) { }
+  constructor(private http: HttpClient, private alertService: AlertService) { }
 
   /**
    * Retrieves all artists from the API.
@@ -68,7 +68,7 @@ export class ArtistService {
    */
   deleteArtist(name: string): Observable<Artist> {
     if (name.toLowerCase() === 'terry') {
-      this.showErrorAlert('Removal of the artist named "Terry" is forbidden.');
+      this.alertService.renderAlert('Forbidden', 'Removal of the artist named "Terry" is forbidden.', ['Dismiss']);
       return throwError(() => new Error('Removal of the artist named "Terry" is forbidden.'));
     }
     return this.http.delete<any>(`${this.baseUrl}/${name}`).pipe(
@@ -93,17 +93,7 @@ export class ArtistService {
       userMessage = `Error code: ${error.status}. Please try again later.`;
     }
 
-    this.showErrorAlert(userMessage);
+    this.alertService.renderAlert('Oops! Something went wrong.', userMessage, ['Dismiss']);
     return throwError(() => new Error(userMessage));
-  }
-
-  private async showErrorAlert(message: string) {
-    const alert = await this.alertController.create({
-      header: 'Oops! Something went wrong.',
-      message: message,
-      buttons: ['OK']
-    });
-
-    await alert.present();
   }
 }

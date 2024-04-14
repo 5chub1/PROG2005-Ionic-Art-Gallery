@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonChip, IonButton, IonCard, IonActionSheet, IonLabel, IonItem, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonList, IonIcon, IonBackButton, IonButtons } from '@ionic/angular/standalone';
-import Artist from '../models/artist.model';
-import { ArtistService } from '../services/artist.service';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IonActionSheet, IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonChip, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { calendar, call, clipboard, colorPalette, ellipsisHorizontalCircleOutline } from 'ionicons/icons';
-import { AlertController, ToastController } from '@ionic/angular';
-import { Color } from '@ionic/core';
+import Artist from '../models/artist.model';
+import { AlertService } from '../services/alert.service';
+import { ArtistService } from '../services/artist.service';
+import { ToastNotificationService } from '../services/toast-notification.service';
 
 @Component({
   selector: 'app-artist-detail',
@@ -18,6 +18,10 @@ import { Color } from '@ionic/core';
 })
 export class ArtistDetailPage implements OnInit {
   artist: Artist = {} as Artist;
+
+  constructor(private artistService: ArtistService, private route: ActivatedRoute, private router: Router, private alertService: AlertService, private toastNotificationService: ToastNotificationService) {
+    addIcons({ calendar, call, colorPalette, clipboard, ellipsisHorizontalCircleOutline });
+  }
 
   public alertButtons = [
     {
@@ -38,13 +42,7 @@ export class ArtistDetailPage implements OnInit {
       text: 'Delete',
       role: 'destructive',
       handler: async () => {
-        const alert = await this.alertController.create({
-          header: 'Delete Artist',
-          message: 'Are you sure you want to delete this artist? This action cannot be undone.',
-          buttons: this.alertButtons,
-        });
-
-        await alert.present();
+        await this.alertService.renderAlert('Delete Artist', 'Are you sure you want to delete this artist?', this.alertButtons);
       },
     },
     {
@@ -58,10 +56,6 @@ export class ArtistDetailPage implements OnInit {
       role: 'cancel',
     },
   ];
-
-  constructor(private artistService: ArtistService, private route: ActivatedRoute, private router: Router, private alertController: AlertController, private toastController: ToastController) {
-    addIcons({ calendar, call, colorPalette, clipboard, ellipsisHorizontalCircleOutline });
-  }
 
   ngOnInit() {
     const artistName = this.route.snapshot.paramMap.get('name');
@@ -89,24 +83,13 @@ export class ArtistDetailPage implements OnInit {
   deleteArtist() {
     this.artistService.deleteArtist(this.artist.name).subscribe({
       next: () => {
-        this.presentToast('Artist deleted successfully', 'success');
+        this.toastNotificationService.renderToastNotification('Artist deleted successfully', 'success');
         this.router.navigate(['/artists']);
       },
       error: (error) => {
-        this.presentToast('An Error occured', 'danger');
+        this.toastNotificationService.renderToastNotification('Could not delete Artist', 'danger');
         console.error('There was an error!', error)
       }
     });
-  }
-
-  async presentToast(message: string, status: Color) {
-    const toast = await this.toastController.create({
-      message,
-      duration: 1500,
-      position: 'top',
-      color: status,
-    });
-
-    await toast.present();
   }
 }
