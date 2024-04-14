@@ -3,10 +3,11 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonChip, IonButton, IonCard, IonActionSheet, IonLabel, IonItem, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonList, IonIcon, IonBackButton, IonButtons } from '@ionic/angular/standalone';
 import Artist from '../models/artist.model';
 import { ArtistService } from '../services/artist.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { calendar, call, clipboard, colorPalette, ellipsisHorizontalCircleOutline } from 'ionicons/icons';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
+import { Color } from '@ionic/core';
 
 @Component({
   selector: 'app-artist-detail',
@@ -58,7 +59,7 @@ export class ArtistDetailPage implements OnInit {
     },
   ];
 
-  constructor(private artistService: ArtistService, private route: ActivatedRoute, private alertController: AlertController) {
+  constructor(private artistService: ArtistService, private route: ActivatedRoute, private router: Router, private alertController: AlertController, private toastController: ToastController) {
     addIcons({ calendar, call, colorPalette, clipboard, ellipsisHorizontalCircleOutline });
   }
 
@@ -87,10 +88,25 @@ export class ArtistDetailPage implements OnInit {
    */
   deleteArtist() {
     this.artistService.deleteArtist(this.artist.name).subscribe({
-      next: (data) => {
-        console.log(data);
+      next: () => {
+        this.presentToast('Artist deleted successfully', 'success');
+        this.router.navigate(['/artists']);
       },
-      error: (error) => console.error('There was an error!', error),
+      error: (error) => {
+        this.presentToast('An Error occured', 'danger');
+        console.error('There was an error!', error)
+      }
     });
+  }
+
+  async presentToast(message: string, status: Color) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 1500,
+      position: 'top',
+      color: status,
+    });
+
+    await toast.present();
   }
 }
