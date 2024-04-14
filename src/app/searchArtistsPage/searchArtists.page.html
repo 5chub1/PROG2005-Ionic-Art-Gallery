@@ -31,27 +31,7 @@
         size-lg="4"
         *ngFor="let artist of filteredArtists"
       >
-        <ion-card href="/artists/{{ artist.name }}">
-          <ion-card-header>
-            <ion-card-title>
-              <span>{{ artist.name }}</span>
-              <ion-chip *ngIf="artist.is_featured_artist">FEATURED</ion-chip>
-            </ion-card-title>
-            <ion-card-subtitle>{{ artist.artwork_type }}</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            <p>
-              Exhibition Date: {{ artist.exhibition_date | date: 'fullDate' }}
-            </p>
-            <p>
-              Featured Artist: {{ artist.is_featured_artist ? 'Yes' : 'No' }}
-            </p>
-            <p>Contact Info: {{ artist.contact_info }}</p>
-            <ion-note *ngIf="artist.special_notes">
-              Notes: {{ artist.special_notes }}
-            </ion-note>
-          </ion-card-content>
-        </ion-card>
+        <app-artist-card [artist]="artist"></app-artist-card>
       </ion-col>
     </ion-row>
   </ion-grid>

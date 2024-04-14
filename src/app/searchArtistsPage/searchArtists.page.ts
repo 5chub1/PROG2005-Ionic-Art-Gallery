@@ -1,6 +1,7 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonChip, IonCol, IonContent, IonGrid, IonHeader, IonNote, IonRow, IonSearchbar, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonCol, IonContent, IonGrid, IonHeader, IonRow, IonSearchbar, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { ArtistCardComponent } from '../components/artist-card/artist-card.component';
 import Artist from '../models/artist.model';
 import { ArtistService } from '../services/artist.service';
 
@@ -9,7 +10,7 @@ import { ArtistService } from '../services/artist.service';
   templateUrl: 'searchArtists.page.html',
   styleUrls: ['searchArtists.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, DatePipe, CommonModule, IonGrid, IonRow, IonCol, IonSearchbar, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonChip, IonNote],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, DatePipe, CommonModule, IonGrid, IonRow, IonCol, IonSearchbar, ArtistCardComponent],
 })
 export class SearchArtistsPage implements OnInit {
   artists: Artist[] = [];

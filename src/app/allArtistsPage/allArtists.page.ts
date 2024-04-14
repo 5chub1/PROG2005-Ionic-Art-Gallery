@@ -1,17 +1,16 @@
-import { DatePipe } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonRow, IonTitle, IonToolbar, IonChip, IonCardSubtitle, IonNote, IonSegment, IonSegmentButton, IonLabel, SegmentChangeEventDetail } from '@ionic/angular/standalone';
-import { ArtistService } from 'src/app/services/artist.service';
-import Artist from '../models/artist.model';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { IonCol, IonContent, IonGrid, IonHeader, IonLabel, IonRow, IonSegment, IonSegmentButton, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { ArtistService } from 'src/app/services/artist.service';
+import { ArtistCardComponent } from '../components/artist-card/artist-card.component';
+import Artist from '../models/artist.model';
 
 @Component({
   selector: 'app-all-artists',
   templateUrl: 'allArtists.page.html',
   styleUrls: ['allArtists.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonCol, IonRow, IonCard, IonCardHeader, IonCardContent, IonCardTitle, HttpClientModule, DatePipe, CommonModule, IonChip, IonCardSubtitle, IonNote, IonSegment, IonSegmentButton, IonLabel],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonCol, IonRow, CommonModule, IonSegment, IonSegmentButton, IonLabel, ArtistCardComponent],
 })
 export class AllArtistsPage implements OnInit {
   artists: Artist[] = [];
