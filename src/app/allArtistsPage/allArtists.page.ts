@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { IonCol, IonContent, IonGrid, IonHeader, IonLabel, IonRow, IonSegment, IonSegmentButton, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonCol, IonContent, IonGrid, IonHeader, IonLabel, IonRow, IonSegment, IonSegmentButton, IonTitle, IonToolbar, IonButtons, IonButton } from '@ionic/angular/standalone';
 import { ArtistService } from 'src/app/services/artist.service';
 import { ArtistCardComponent } from '../components/artist-card/artist-card.component';
 import Artist from '../models/artist.model';
@@ -10,7 +10,7 @@ import Artist from '../models/artist.model';
   templateUrl: 'allArtists.page.html',
   styleUrls: ['allArtists.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonCol, IonRow, CommonModule, IonSegment, IonSegmentButton, IonLabel, ArtistCardComponent],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonCol, IonRow, CommonModule, IonSegment, IonSegmentButton, IonLabel, ArtistCardComponent, IonButtons, IonButton],
 })
 export class AllArtistsPage implements OnInit {
   artists: Artist[] = [];
