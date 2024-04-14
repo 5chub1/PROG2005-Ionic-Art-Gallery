@@ -14,17 +14,12 @@ export const routes: Routes = [
       {
         path: 'search',
         loadComponent: () =>
-          import('../tab3/tab3.page').then((m) => m.Tab3Page),
+          import('../searchArtistsPage/searchArtists.page').then((m) => m.SearchArtistsPage),
       },
       {
         path: 'add',
         loadComponent: () =>
-          import('../tab3/tab3.page').then((m) => m.Tab3Page),
-      },
-      {
-        path: 'featured',
-        loadComponent: () =>
-          import('../allArtistsPage/allArtists.page').then((m) => m.AllArtistsPage),
+          import('../searchArtistsPage/searchArtists.page').then((m) => m.SearchArtistsPage),
       },
       {
         path: ':name',
