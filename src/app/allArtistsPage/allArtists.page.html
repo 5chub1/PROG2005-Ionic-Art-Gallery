@@ -1,6 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> All Artists </ion-title>
+    <ion-segment value="all" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="all">
+        <ion-label>All</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="featured">
+        <ion-label>Featured</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
@@ -18,33 +25,52 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let artist of artists">
+      <ion-col
+        size="12"
+        size-md="6"
+        size-lg="4"
+        *ngFor="let artist of displayedArtists"
+      >
         <ion-card href="/artists/{{ artist.name}}">
-          <ion-card-header class="ion-card-header">
+          <ion-card-header>
             <ion-card-title
-              >{{ artist.name || 'Unnamed Artist' }}
-            </ion-card-title>
-            <ion-chip [outline]="true">{{ artist.artist_id }}</ion-chip>
+              ><span>{{ artist.name }}</span
+              ><ion-chip *ngIf="artist.is_featured_artist"
+                >FEATURED</ion-chip
+              ></ion-card-title
+            >
+            <ion-card-subtitle>{{ artist.artwork_type }}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-            <p><strong>DOB</strong> {{ artist.dob | date: 'longDate' }}</p>
-            <p><strong>Gender:</strong> {{ artist.gender }}</p>
-            <p><strong>Artwork Type:</strong> {{ artist.artwork_type }}</p>
-            <p><strong>Contact Info:</strong> {{ artist.contact_info }}</p>
             <p>
-              <strong>Exhibition Date:</strong> {{ artist.exhibition_date |
-              date: 'medium' }}
+              Exhibition Date: {{ artist.exhibition_date | date: 'fullDate' }}
             </p>
-            <p><strong>Special Notes:</strong> {{ artist.special_notes }}</p>
             <p>
-              <strong>Featured Artist:</strong>
-              <span *ngIf="artist.is_featured_artist; else isNotFeatured"
-                >&nbsp;✅</span
-              ><ng-template #isNotFeatured><span>&nbsp;❌</span></ng-template>
+              Featured Artist: {{ artist.is_featured_artist ? 'Yes' : 'No' }}
             </p>
+            <p>Contact Info: {{ artist.contact_info }}</p>
+            <ion-note *ngIf="artist.special_notes">
+              Notes: {{ artist.special_notes }}
+            </ion-note>
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
+
+<!-- <div class="bg-white dark:bg-zinc-800 shadow-lg rounded-lg overflow-hidden">
+  <div class="p-4">
+      <h3 class="text-xl font-semibold text-zinc-800 dark:text-white">Artist Name</h3>
+      <p class="text-sm text-zinc-600 dark:text-zinc-300">Artwork Type: Painting</p>
+      <p class="text-sm text-zinc-600 dark:text-zinc-300">Exhibition Date: 01/01/2022</p>
+      <p class="text-sm text-zinc-600 dark:text-zinc-300">Contact Info: example@example.com</p>
+      <div class="flex items-center mt-2">
+          <p class="text-sm text-zinc-600 dark:text-zinc-300 mr-2">Date of Birth: 01/01/1990</p>
+          <span class="bg-zinc-400 dark:bg-zinc-600 text-xs text-white dark:text-zinc-300 px-2 py-1 rounded-full">Featured</span>
+      </div>
+  </div>
+  <div class="bg-zinc-200 dark:bg-zinc-700 p-4">
+      <p class="text-sm text-zinc-600 dark:text-zinc-300">Special Notes: Lorem ipsum dolor sit amet</p>
+  </div>
+</div> -->

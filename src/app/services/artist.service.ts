@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import Artist from '../models/artist.model';
+import { AlertController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ArtistService {
 
   private baseUrl = 'https://prog2005.it.scu.edu.au/ArtGalley';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private alertController: AlertController) { }
 
   /**
    * Retrieves all artists from the API.
@@ -67,6 +68,7 @@ export class ArtistService {
    */
   deleteArtist(name: string): Observable<Artist> {
     if (name.toLowerCase() === 'terry') {
+      this.showErrorAlert('Removal of the artist named "Terry" is forbidden.');
       return throwError(() => new Error('Removal of the artist named "Terry" is forbidden.'));
     }
     return this.http.delete<any>(`${this.baseUrl}/${name}`).pipe(
@@ -79,15 +81,29 @@ export class ArtistService {
    * @param error The HTTP error response.
    * @returns An observable with a user-facing error message.
    */
-  private handleError(error: HttpErrorResponse) {
+  public handleError(error: HttpErrorResponse): Observable<never> {
+    let userMessage = 'Something bad happened; please try again later.';
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);
+      userMessage = error.error.message;
     } else {
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
+      userMessage = `Error code: ${error.status}. Please try again later.`;
     }
-    return throwError(
-      'Something bad happened; please try again later.');
+
+    this.showErrorAlert(userMessage);
+    return throwError(() => new Error(userMessage));
+  }
+
+  private async showErrorAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Oops! Something went wrong.',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }
