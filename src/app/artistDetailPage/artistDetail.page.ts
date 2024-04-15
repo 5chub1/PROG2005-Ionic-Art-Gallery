@@ -54,7 +54,7 @@ export class ArtistDetailPage implements OnInit {
     {
       text: 'Edit',
       handler: () => {
-        console.log('Edit clicked');
+        this.router.navigate(['/artists/add'], { state: { data: this.artist } });
       },
     },
     {

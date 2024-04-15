@@ -24,7 +24,7 @@ export const routes: Routes = [
       {
         path: 'add',
         loadComponent: () =>
-          import('../searchArtistsPage/searchArtists.page').then((m) => m.SearchArtistsPage),
+          import('../addArtist/addArtist.page').then((m) => m.AddArtistPage),
       },
       {
         path: 'privacy',
