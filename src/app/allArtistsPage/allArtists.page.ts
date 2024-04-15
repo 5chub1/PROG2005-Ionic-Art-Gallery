@@ -26,6 +26,10 @@ export class AllArtistsPage implements OnInit {
     addIcons({ helpCircleOutline });
   }
 
+  /**
+   * Handles the segment change event.
+   * @param event - The segment change event object.
+   */
   segmentChanged(event: any) {
     if (event.detail.value === 'featured') {
       this.isFeaturedPage = true;
@@ -36,10 +40,6 @@ export class AllArtistsPage implements OnInit {
     }
   }
 
-  openHelp() {
-    this.alertService.renderAlert('Help', 'Use this page to view all artists. You can filter the artists by featured artists by selecting "Featured" at the top. Click an artist to view more details about them. Click "Add" to open the add artist form.');
-  }
-
   ngOnInit() {
     this.artistService.getAllArtists().subscribe({
       next: (data: Artist[]) => {
@@ -48,5 +48,9 @@ export class AllArtistsPage implements OnInit {
       },
       error: (error) => console.error('There was an error!', error),
     });
+  }
+
+  openHelp() {
+    this.alertService.renderAlert('Help', 'Use this page to view all artists. You can filter the artists by featured artists by selecting "Featured" at the top. Click an artist to view more details about them. Click "Add" to open the add artist form.');
   }
 }

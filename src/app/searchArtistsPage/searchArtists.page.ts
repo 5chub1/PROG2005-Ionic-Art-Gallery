@@ -32,6 +32,10 @@ export class SearchArtistsPage implements OnInit {
     });
   }
 
+  /**
+   * Searches for artists based on the provided query.
+   * @param event - The event object triggered by the search input.
+   */
   searchForArtists(event: any) {
     const query = event.target.value;
     if (!query || query === '') {

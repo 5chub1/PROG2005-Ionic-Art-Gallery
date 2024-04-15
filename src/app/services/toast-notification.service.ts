@@ -5,6 +5,9 @@ import { Color } from '@ionic/core';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Service for rendering toast notifications.
+ */
 export class ToastNotificationService {
 
   constructor(private toastController: ToastController) { }

@@ -1,7 +1,7 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonActionSheet, IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonChip, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonLoading, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonActionSheet, IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonLoading, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { calendar, call, clipboard, colorPalette, ellipsisHorizontalCircleOutline, helpCircleOutline } from 'ionicons/icons';
 import Artist from '../models/artist.model';
@@ -14,7 +14,7 @@ import { ToastNotificationService } from '../services/toast-notification.service
   templateUrl: 'artistDetail.page.html',
   styleUrls: ['artistDetail.page.scss'],
   standalone: true,
-  imports: [IonLoading, IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonCol, IonRow, IonChip, DatePipe, CommonModule, IonButton, IonCard, IonLabel, IonItem, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonList, IonIcon, IonButtons, IonBackButton, IonActionSheet],
+  imports: [IonLoading, IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonCol, IonRow, DatePipe, CommonModule, IonButton, IonIcon, IonButtons, IonBackButton, IonActionSheet],
 })
 export class ArtistDetailPage implements OnInit {
   artist: Artist | undefined = undefined;
@@ -23,6 +23,9 @@ export class ArtistDetailPage implements OnInit {
     addIcons({ calendar, call, colorPalette, clipboard, ellipsisHorizontalCircleOutline, helpCircleOutline });
   }
 
+  /**
+   * Array of alert buttons consumed by the alert service.
+   */
   public alertButtons = [
     {
       text: 'Cancel',
@@ -37,6 +40,9 @@ export class ArtistDetailPage implements OnInit {
     },
   ];
 
+  /**
+   * Array of action sheet buttons consumed by the artist detail page.
+   */
   public actionSheetButtons = [
     {
       text: 'Delete',
