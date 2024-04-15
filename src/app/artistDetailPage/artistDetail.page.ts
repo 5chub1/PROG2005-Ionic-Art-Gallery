@@ -1,7 +1,7 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonActionSheet, IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonChip, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonActionSheet, IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonChip, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonLoading, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { calendar, call, clipboard, colorPalette, ellipsisHorizontalCircleOutline, helpCircleOutline } from 'ionicons/icons';
 import Artist from '../models/artist.model';
@@ -14,10 +14,10 @@ import { ToastNotificationService } from '../services/toast-notification.service
   templateUrl: 'artistDetail.page.html',
   styleUrls: ['artistDetail.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonCol, IonRow, IonChip, DatePipe, CommonModule, IonButton, IonCard, IonLabel, IonItem, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonList, IonIcon, IonButtons, IonBackButton, IonActionSheet],
+  imports: [IonLoading, IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonCol, IonRow, IonChip, DatePipe, CommonModule, IonButton, IonCard, IonLabel, IonItem, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonList, IonIcon, IonButtons, IonBackButton, IonActionSheet],
 })
 export class ArtistDetailPage implements OnInit {
-  artist: Artist = {} as Artist;
+  artist: Artist | undefined = undefined;
 
   constructor(private artistService: ArtistService, private route: ActivatedRoute, private router: Router, private alertService: AlertService, private toastNotificationService: ToastNotificationService) {
     addIcons({ calendar, call, colorPalette, clipboard, ellipsisHorizontalCircleOutline, helpCircleOutline });
@@ -59,7 +59,6 @@ export class ArtistDetailPage implements OnInit {
 
   ngOnInit() {
     const artistName = this.route.snapshot.paramMap.get('name');
-
     if (!artistName || artistName === '') return;
     // It would be better if this endpoint would search by ID instead of name, because names are not unique.
     // This is a limitation of the API and needs some extra work to check if the artist is the correct one.
@@ -81,7 +80,7 @@ export class ArtistDetailPage implements OnInit {
    * Deletes the artist from the API.
    */
   deleteArtist() {
-    this.artistService.deleteArtist(this.artist.name).subscribe({
+    this.artistService.deleteArtist(this.artist!.name).subscribe({
       next: () => {
         this.toastNotificationService.renderToastNotification('Artist deleted successfully', 'success');
         this.router.navigate(['/artists']);

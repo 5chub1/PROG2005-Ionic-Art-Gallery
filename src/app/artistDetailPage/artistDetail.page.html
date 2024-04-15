@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>{{ artist.name || 'Unnamed Artist' }} </ion-title>
+    <ion-title>{{ artist?.name || 'Unnamed Artist' }} </ion-title>
     <ion-buttons slot="start">
       <ion-button (click)="openHelp()"
         ><ion-icon slot="icon-only" name="help-circle-outline"></ion-icon
@@ -21,6 +21,12 @@
 <ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row>
+      <ion-loading
+        [isOpen]="!artist"
+        message="Loading Artist Details..."
+      ></ion-loading>
+    </ion-row>
+    <ion-row *ngIf="artist">
       <ion-col size="6" sizeMd="4" sizeLg="3">
         <p>DOB: {{ artist.dob | date: 'longDate' }}</p>
       </ion-col>
