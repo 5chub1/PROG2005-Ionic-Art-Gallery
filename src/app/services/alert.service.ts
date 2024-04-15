@@ -13,7 +13,7 @@ export class AlertService {
     const alert = await this.alertController.create({
       header: title,
       message,
-      buttons: alertButtons,
+      buttons: alertButtons || ['Dismiss'],
     });
     await alert.present();
   }

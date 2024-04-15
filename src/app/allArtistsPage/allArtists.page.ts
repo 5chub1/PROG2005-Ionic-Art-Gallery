@@ -1,16 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { IonCol, IonContent, IonGrid, IonHeader, IonLabel, IonRow, IonSegment, IonSegmentButton, IonTitle, IonToolbar, IonButtons, IonButton } from '@ionic/angular/standalone';
+import { IonCol, IonContent, IonGrid, IonHeader, IonLabel, IonRow, IonSegment, IonSegmentButton, IonTitle, IonToolbar, IonButtons, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { ArtistService } from 'src/app/services/artist.service';
 import { ArtistCardComponent } from '../components/artist-card/artist-card.component';
 import Artist from '../models/artist.model';
+import { helpCircleOutline } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-all-artists',
   templateUrl: 'allArtists.page.html',
   styleUrls: ['allArtists.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonCol, IonRow, CommonModule, IonSegment, IonSegmentButton, IonLabel, ArtistCardComponent, IonButtons, IonButton],
+  imports: [IonIcon, IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonCol, IonRow, CommonModule, IonSegment, IonSegmentButton, IonLabel, ArtistCardComponent, IonButtons, IonButton],
 })
 export class AllArtistsPage implements OnInit {
   artists: Artist[] = [];
@@ -19,7 +22,8 @@ export class AllArtistsPage implements OnInit {
   // If it is, we will only show the featured artists.
   isFeaturedPage = false
 
-  constructor(private artistService: ArtistService) {
+  constructor(private artistService: ArtistService, private alertService: AlertService) {
+    addIcons({ helpCircleOutline });
   }
 
   segmentChanged(event: any) {
@@ -30,6 +34,10 @@ export class AllArtistsPage implements OnInit {
       this.isFeaturedPage = false;
       this.displayedArtists = this.artists;
     }
+  }
+
+  openHelp() {
+    this.alertService.renderAlert('Help', 'This is the help message for the all artists page.');
   }
 
   ngOnInit() {

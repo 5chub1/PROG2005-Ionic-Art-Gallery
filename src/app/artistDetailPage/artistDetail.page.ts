@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonActionSheet, IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonChip, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { calendar, call, clipboard, colorPalette, ellipsisHorizontalCircleOutline } from 'ionicons/icons';
+import { calendar, call, clipboard, colorPalette, ellipsisHorizontalCircleOutline, helpCircleOutline } from 'ionicons/icons';
 import Artist from '../models/artist.model';
 import { AlertService } from '../services/alert.service';
 import { ArtistService } from '../services/artist.service';
@@ -20,7 +20,7 @@ export class ArtistDetailPage implements OnInit {
   artist: Artist = {} as Artist;
 
   constructor(private artistService: ArtistService, private route: ActivatedRoute, private router: Router, private alertService: AlertService, private toastNotificationService: ToastNotificationService) {
-    addIcons({ calendar, call, colorPalette, clipboard, ellipsisHorizontalCircleOutline });
+    addIcons({ calendar, call, colorPalette, clipboard, ellipsisHorizontalCircleOutline, helpCircleOutline });
   }
 
   public alertButtons = [
@@ -91,5 +91,9 @@ export class ArtistDetailPage implements OnInit {
         console.error('There was an error!', error)
       }
     });
+  }
+
+  openHelp() {
+    this.alertService.renderAlert('Help', 'This is the help message for the artist detail page.');
   }
 }
