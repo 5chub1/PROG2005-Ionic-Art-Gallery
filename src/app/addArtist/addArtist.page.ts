@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonSelectOption, IonButton, IonInput, IonTextarea, IonCheckbox, IonToast } from '@ionic/angular/standalone';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { IonButton, IonCheckbox, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonSelectOption, IonTextarea, IonTitle, IonToast, IonToolbar } from '@ionic/angular/standalone';
 import { ArtistService } from '../services/artist.service';
-import Artist from '../models/artist.model';
+import { ToastNotificationService } from '../services/toast-notification.service';
 
 @Component({
   selector: 'app-add-artist',
@@ -28,7 +28,7 @@ export class AddArtistPage implements OnInit {
     private formBuilder: FormBuilder,
     private service: ArtistService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private notificationService: ToastNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -79,17 +79,21 @@ export class AddArtistPage implements OnInit {
     if (this.artistForm.valid && !this.editData) {
       this.service.createArtist(this.artistForm.value).subscribe(res => {
         this.router.navigate(['/artists/all']);
+        this.notificationService.renderToastNotification('Artist added successfully', 'success');
       }, error => {
         this.toast = true;
         this.toastMsg = error;
+        this.notificationService.renderToastNotification('Error! Artist could not be added', 'danger');
       });
     }
     else {
       this.service.updateArtist(this.artistForm.value.name, this.artistForm.value).subscribe(res => {
         this.router.navigate(['/artists/all']);
+        this.notificationService.renderToastNotification('Artist updated successfully', 'success');
       }, error => {
         this.toast = true;
         this.toastMsg = error;
+        this.notificationService.renderToastNotification('Error! Artist could not be updated', 'danger');
       });
     }
   }
