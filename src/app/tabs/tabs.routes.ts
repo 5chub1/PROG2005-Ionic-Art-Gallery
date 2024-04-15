@@ -9,7 +9,7 @@ export const routes: Routes = [
       {
         path: 'home',
         loadComponent: () =>
-          import('../home/home.page').then((m) => m.HomePage),
+          import('../homePage/home.page').then((m) => m.HomePage),
       },
       {
         path: 'all',
@@ -27,20 +27,20 @@ export const routes: Routes = [
           import('../searchArtistsPage/searchArtists.page').then((m) => m.SearchArtistsPage),
       },
       {
+        path: 'privacy',
+        loadComponent: () =>
+          import('../privacyPage/privacy.page').then((m) => m.PrivacyPage),
+      },
+      {
         path: ':name',
         loadComponent: () =>
           import('../artistDetailPage/artistDetail.page').then((m) => m.ArtistDetailPage),
       },
-      {
-        path: 'privacy',
-        loadComponent: () =>
-          import('../artistDetailPage/artistDetail.page').then((m) => m.ArtistDetailPage),
-      }
     ],
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'artists/home',
     pathMatch: 'full',
   },
 ];
