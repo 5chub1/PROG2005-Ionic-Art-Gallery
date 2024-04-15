@@ -7,6 +7,11 @@ export const routes: Routes = [
     component: TabsPage,
     children: [
       {
+        path: 'home',
+        loadComponent: () =>
+          import('../home/home.page').then((m) => m.HomePage),
+      },
+      {
         path: 'all',
         loadComponent: () =>
           import('../allArtistsPage/allArtists.page').then((m) => m.AllArtistsPage),
@@ -30,7 +35,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'artists',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
 ];
