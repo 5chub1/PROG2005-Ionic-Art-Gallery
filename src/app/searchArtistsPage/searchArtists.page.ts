@@ -44,6 +44,6 @@ export class SearchArtistsPage implements OnInit {
   }
 
   openHelp() {
-    this.alertService.renderAlert('Help', 'This is the help message for the search artists page.');
+    this.alertService.renderAlert('Help', 'This page allows you to search for artists. Type in the search bar to search for artists by name. Click on an artist to view more details about them.');
   }
 }

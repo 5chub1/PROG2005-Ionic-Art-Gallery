@@ -70,7 +70,6 @@ export class ArtistDetailPage implements OnInit {
         } else {
           this.artist = data;
         }
-        console.log(data);
       },
       error: (error) => console.error('There was an error!', error),
     });
@@ -93,6 +92,6 @@ export class ArtistDetailPage implements OnInit {
   }
 
   openHelp() {
-    this.alertService.renderAlert('Help', 'This is the help message for the artist detail page.');
+    this.alertService.renderAlert('Help', 'This page displays the details of an artist. You can edit or delete the artist by clicking the ellipsis icon in the top right corner and choose an option.');
   }
 }

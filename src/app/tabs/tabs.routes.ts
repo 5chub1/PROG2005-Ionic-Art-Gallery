@@ -30,6 +30,11 @@ export const routes: Routes = [
         path: ':name',
         loadComponent: () =>
           import('../artistDetailPage/artistDetail.page').then((m) => m.ArtistDetailPage),
+      },
+      {
+        path: 'privacy',
+        loadComponent: () =>
+          import('../artistDetailPage/artistDetail.page').then((m) => m.ArtistDetailPage),
       }
     ],
   },
